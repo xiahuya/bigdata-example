@@ -1,0 +1,31 @@
+<assembly>
+    <id>kudu</id>
+    <!--此处是打包名称的设置，最后是最后会生成一个dupcheck-bin.jar 文件在目录 target 下-->
+    <!-- 其中前一个dupcheck来自finalName，后一个id来自assembly descriptor中的id(bin名称随便改 -->
+
+    <formats>
+        <!-- 最终打包成一个用于发布的jar文件 -->
+        <format>jar</format>
+    </formats>
+
+    <!-- Adds dependencies to zip package under lib directory -->
+    <dependencySets>
+        <dependencySet>
+            <!-- 不使用项目的artifact，第三方jar不要解压，打包进zip文件的lib目录 -->
+            <useProjectArtifact>true</useProjectArtifact>
+            <outputDirectory>lib</outputDirectory>
+            <unpack>false</unpack>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <!-- 把项目的配置文件，打包进zip文件的config目录 -->
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <outputDirectory>config</outputDirectory>
+            <includes>
+                <include>*.properties</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>

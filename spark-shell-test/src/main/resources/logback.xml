@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder charset="UTF-8">
+            <pattern>%d{HH:mm:ss.SSS} [%t] [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="infoFILE" class="ch.qos.logback.core.FileAppender">
+        <file>../logs/kafka-streaming.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%t] [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="kafka-streaming" level="error"/>
+    <root level="error">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="infoFILE"/>
+    </root>
+
+</configuration>
