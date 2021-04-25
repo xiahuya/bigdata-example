@@ -106,25 +106,37 @@ public class HbaseDML {
     @Test
     public void testManyPuts() throws Exception {
         //获取一个操作指定表的操作对象
-        Table testHbase = conn.getTable(TableName.valueOf("test:hbase_user_behavior2"));
-        ArrayList<Put> puts = new ArrayList<Put>();
-        for (int i = 1; i < 10000000; i++) {
-            Put put = new Put(Bytes.toBytes(String.valueOf(i)));
-            put.addColumn(Bytes.toBytes("info"), Bytes.toBytes("name"), Bytes.toBytes("tom" + i));
-            put.addColumn(Bytes.toBytes("info"), Bytes.toBytes("age"), Bytes.toBytes(String.valueOf(i)));
-            put.addColumn(Bytes.toBytes("info"), Bytes.toBytes("sex"), Bytes.toBytes("男"));
-            puts.add(put);
+        for (int a = 32; a <= 45; a++) {
+            Table testHbase = conn.getTable(TableName.valueOf("lookup:realtime_dim_" + a));
+            ArrayList<Put> puts = new ArrayList<Put>();
+            for (int i = 1; i < 500000; i++) {
+                Put put = new Put(Bytes.toBytes(String.valueOf(i)));
+                put.addColumn(Bytes.toBytes("info"), Bytes.toBytes("name"), Bytes.toBytes("Harden_" + i));
+                put.addColumn(Bytes.toBytes("info"), Bytes.toBytes("age"), Bytes.toBytes(String.valueOf(i)));
+                put.addColumn(Bytes.toBytes("info"), Bytes.toBytes("sex"), Bytes.toBytes("boy"));
+                puts.add(put);
 
-            if (puts.size() > 100000) {
-                testHbase.put(puts);
-                puts.clear();
-                System.out.println("成功插入hbase~");
+                if (puts.size() > 100000) {
+                    testHbase.put(puts);
+                    puts.clear();
+                    System.out.println("成功插入hbase~");
+                }
             }
-        }
 
-        testHbase.put(puts);
-        testHbase.close();
+            testHbase.put(puts);
+            testHbase.close();
+            System.out.println("******成功插入lookup:realtime_dim_" + a);
+        }
         conn.close();
+
+
+        //获取一个操作指定表的操作对象
+        /*StringBuffer sb = new StringBuffer();
+        for (int a = 1; a <= 45; a++) {
+            String s = "lookup:realtime_dim_" + a;
+            sb.append(s).append(",");
+        }
+        System.out.println(sb.toString());*/
     }
 
     /**

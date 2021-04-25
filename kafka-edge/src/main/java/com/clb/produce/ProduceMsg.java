@@ -13,7 +13,7 @@ public class ProduceMsg {
     private static String STUDENT_FORMAT = "%s,%s,%s";
 
     public static ProducerRecord<String, String> buildMsg(String rowkey, String topic) {
-        String msg = String.format(STUDENT_FORMAT, rowkey, "Tom_" + rowkey, "man");
+        String msg = String.format(STUDENT_FORMAT, rowkey, "XiaHu_" + rowkey, "man");
         log.info(msg);
         return new ProducerRecord(topic, msg);
     }

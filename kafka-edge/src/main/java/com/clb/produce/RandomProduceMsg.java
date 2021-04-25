@@ -9,7 +9,8 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  */
 public class RandomProduceMsg {
     private static String topic = "flink_kafka_source";
-    private static int count = 1000000;
+    private static int count = 2200000;
+    private static int INDEX_T = 1;
 
     public static void main(String[] args) {
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(ProduceTool.getProp());
@@ -17,15 +18,25 @@ public class RandomProduceMsg {
     }
 
     public void start(String topic, int count, KafkaProducer<String, String> producer) {
-        for (int i = 1; i <= count; i++) {
-            ProducerRecord<String, String> msg = ProduceMsg.buildMsg(String.valueOf(i), topic);
-            producer.send(msg);
+        int index = 0;
+        while (true) {
+            if (index >= INDEX_T) {
+                break;
+            }
+            for (int i = 1; i <= count; i++) {
+                ProducerRecord<String, String> msg = ProduceMsg.buildMsg(String.valueOf(i), topic);
+                producer.send(msg);
 
-            /*try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
+               /* if (i % 3000 == 0) {
+                    try {
+                        Thread.sleep(800);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }*/
+
+            }
+            index++;
         }
     }
 }
