@@ -26,6 +26,7 @@
         <module>influxdb</module>
         <module>parquet</module>
         <module>orc</module>
+        <module>redis</module>
     </modules>
 
     <properties>

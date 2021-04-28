@@ -9,7 +9,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  */
 public class RandomProduceMsg {
     private static String topic = "flink_kafka_source";
-    private static int count = 2200000;
+    private static int count = 10000;
     private static int INDEX_T = 1;
 
     public static void main(String[] args) {
@@ -27,16 +27,17 @@ public class RandomProduceMsg {
                 ProducerRecord<String, String> msg = ProduceMsg.buildMsg(String.valueOf(i), topic);
                 producer.send(msg);
 
-               /* if (i % 3000 == 0) {
+                if (i % 100 == 0) {
                     try {
-                        Thread.sleep(800);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                }*/
+                }
 
             }
             index++;
         }
     }
+
 }
