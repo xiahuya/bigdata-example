@@ -32,7 +32,6 @@ public class Jedis_03 {
         //根据key,在其value后添加内容
         jedis.append("key","append value");
 
-
         //一次增加多个键值对
         String mset = jedis.mset("k1", "v1", "k2", "v2");
 

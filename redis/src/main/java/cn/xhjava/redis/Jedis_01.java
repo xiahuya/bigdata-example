@@ -13,10 +13,10 @@ import java.util.Set;
 /**
  * @author Xiahu
  * @create 2021/4/27
+ *
+ * connection
  */
 public class Jedis_01 {
-    //connect
-
     public static void main(String[] args) {
         JedisCluster jedisCluster = Jedis_01.getJedisCluster();
         jedisCluster.set("key_1", "xiahu");
@@ -26,7 +26,6 @@ public class Jedis_01 {
 
 
     public static Jedis getJedis() {
-//        return new Jedis("node2");
         return new Jedis("node3", 7000);
     }
 
