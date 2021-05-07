@@ -27,6 +27,7 @@
         <module>parquet</module>
         <module>orc</module>
         <module>redis</module>
+        <module>flink-submit</module>
     </modules>
 
     <properties>
