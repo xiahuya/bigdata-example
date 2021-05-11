@@ -1,6 +1,5 @@
 package cn.xhjava.redis;
 
-import cn.xhjava.redis.pipline.JedisClusterPipeline;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
@@ -13,7 +12,7 @@ import java.util.Set;
 /**
  * @author Xiahu
  * @create 2021/4/27
- *
+ * <p>
  * connection
  */
 public class Jedis_01 {
@@ -66,9 +65,12 @@ public class Jedis_01 {
 
     public static JedisClusterPipeline getJedisClusterPipline() {
         Set<HostAndPort> hostAndPortSet = new HashSet<HostAndPort>();
-        hostAndPortSet.add(new HostAndPort("node3", 7000));
-        hostAndPortSet.add(new HostAndPort("node3", 7004));
-        hostAndPortSet.add(new HostAndPort("node3", 7002));
+        hostAndPortSet.add(new HostAndPort("192.168.0.101", 6458));
+        hostAndPortSet.add(new HostAndPort("192.168.0.102", 6458));
+        hostAndPortSet.add(new HostAndPort("192.168.0.103", 6458));
+        hostAndPortSet.add(new HostAndPort("192.168.0.104", 6458));
+        hostAndPortSet.add(new HostAndPort("192.168.0.105", 6458));
+
 
         return new JedisClusterPipeline(hostAndPortSet, Jedis_01.getGenericObjectPoolConfig());
 
@@ -76,8 +78,9 @@ public class Jedis_01 {
 
     private static GenericObjectPoolConfig getGenericObjectPoolConfig() {
         GenericObjectPoolConfig genericObjectPool = new GenericObjectPoolConfig();
-       /* genericObjectPool.setMaxIdle(10);
-        genericObjectPool.setMaxTotal(100);*/
+        genericObjectPool.setMaxIdle(10);
+        genericObjectPool.setMaxTotal(100);
+        genericObjectPool.setMaxWaitMillis(Integer.MAX_VALUE);
         genericObjectPool.setMinEvictableIdleTimeMillis(30000);
         genericObjectPool.setSoftMinEvictableIdleTimeMillis(60000);
         return genericObjectPool;
