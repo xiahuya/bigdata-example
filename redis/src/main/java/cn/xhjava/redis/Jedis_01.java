@@ -6,6 +6,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ import java.util.Set;
  * connection
  */
 public class Jedis_01 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         JedisCluster jedisCluster = Jedis_01.getJedisCluster();
         jedisCluster.set("key_1", "xiahu");
         jedisCluster.close();
@@ -55,26 +56,16 @@ public class Jedis_01 {
 
     public static JedisCluster getJedisCluster() {
         Set<HostAndPort> hostAndPortSet = new HashSet<HostAndPort>();
-        hostAndPortSet.add(new HostAndPort("node3", 7000));
-        hostAndPortSet.add(new HostAndPort("node3", 7004));
-        hostAndPortSet.add(new HostAndPort("node3", 7002));
-
-        JedisCluster jedisCluster = new JedisCluster(hostAndPortSet, Jedis_01.getGenericObjectPoolConfig());
-        return jedisCluster;
-    }
-
-    public static JedisClusterPipeline getJedisClusterPipline() {
-        Set<HostAndPort> hostAndPortSet = new HashSet<HostAndPort>();
         hostAndPortSet.add(new HostAndPort("192.168.0.101", 6458));
         hostAndPortSet.add(new HostAndPort("192.168.0.102", 6458));
         hostAndPortSet.add(new HostAndPort("192.168.0.103", 6458));
         hostAndPortSet.add(new HostAndPort("192.168.0.104", 6458));
         hostAndPortSet.add(new HostAndPort("192.168.0.105", 6458));
-
-
-        return new JedisClusterPipeline(hostAndPortSet, Jedis_01.getGenericObjectPoolConfig());
-
+        JedisCluster jedisCluster = new JedisCluster(hostAndPortSet, Jedis_01.getGenericObjectPoolConfig());
+        return jedisCluster;
     }
+
+
 
     private static GenericObjectPoolConfig getGenericObjectPoolConfig() {
         GenericObjectPoolConfig genericObjectPool = new GenericObjectPoolConfig();

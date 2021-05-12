@@ -20,7 +20,7 @@ public class RedisTest {
     private Jedis jedis;
     private static String FORMAT = "id:%s,name:%s,age:%s";
     private long startTime;
-    JedisClusterPipeline pipline = null;
+    JedisClusterPipeline piplineCluster = null;
     private Pipeline pipelined;
 
 
@@ -30,7 +30,7 @@ public class RedisTest {
         startTime = System.currentTimeMillis();
 
         pipelined = jedis.pipelined();
-        pipline = JedisClusterPipeline.pipelined(Jedis_01.getJedisCluster());
+        piplineCluster = JedisClusterPipeline.pipelined(Jedis_01.getJedisCluster());
     }
 
 
@@ -49,16 +49,15 @@ public class RedisTest {
 
     @Test
     public void insertDataToRedisCluster() {
-        Map<String, String> map = new HashMap<>(13500000);
         for (int j = 1; j <= 45; j++) {
             String tableNmae = "redis_test_" + j;
             int count = 300000;
             for (int i = 1; i <= count; i++) {
-                pipline.set(tableNmae + "_" + i, String.format(FORMAT, i, "zhangsan_" + tableNmae, tableNmae));
+                piplineCluster.set(tableNmae + "_" + i, String.format(FORMAT, i, "zhangsan_" + tableNmae, tableNmae));
             }
+            piplineCluster.sync();
         }
         System.out.println("start");
-
     }
 
     @Test
@@ -81,7 +80,7 @@ public class RedisTest {
     public void close() {
         jedis.close();
         long endTime = System.currentTimeMillis();
-        pipline.close();
-        //System.out.println("耗费时间：" + (endTime - startTime) / 1000.0);
+        piplineCluster.close();
+        System.out.println("耗费时间：" + (endTime - startTime) / 1000.0);
     }
 }

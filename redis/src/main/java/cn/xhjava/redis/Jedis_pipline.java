@@ -3,6 +3,8 @@ package cn.xhjava.redis;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 
+import java.io.IOException;
+
 /**
  * @author Xiahu
  * @create 2021/4/28
@@ -26,7 +28,11 @@ public class Jedis_pipline {
 
 
         //释放资源
-        pipelined.close();
+        try {
+            pipelined.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         jedis.close();
 
     }

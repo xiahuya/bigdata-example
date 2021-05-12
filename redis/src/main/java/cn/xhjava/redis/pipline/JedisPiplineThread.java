@@ -4,6 +4,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Pipeline;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -42,7 +43,11 @@ public class JedisPiplineThread implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            pipelined.close();
+            try {
+                pipelined.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             jedis.close();
             cdl.countDown();
         }
