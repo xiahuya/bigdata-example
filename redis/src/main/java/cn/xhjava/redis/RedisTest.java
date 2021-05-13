@@ -1,5 +1,6 @@
 package cn.xhjava.redis;
 
+import cn.xhjava.redis.high_concurrency.RedisMain;
 import cn.xhjava.redis.pipline.JedisClusterPipeline;
 import cn.xhjava.redis.pipline.RedisClusterUtils;
 import org.junit.After;
@@ -9,6 +10,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +46,6 @@ public class RedisTest {
             }
             pipelined.sync();
         }
-
     }
 
     @Test
@@ -58,6 +59,27 @@ public class RedisTest {
             piplineCluster.sync();
         }
         System.out.println("start");
+    }
+
+
+    @Test
+    public void insertMultiRedisInstance() {
+        List<Jedis> jedisPools = Jedis_01.getJedisPools();
+        Map<String, String> dataKeyValue = RedisMain.dataKeyValue(1000000);
+        Map<Jedis, Map<String, String>> jedisMapMap = Jedis_01.distributeRedisInstacne(jedisPools, dataKeyValue);
+
+        Iterator<Map.Entry<Jedis, Map<String, String>>> entryIterator = jedisMapMap.entrySet().iterator();
+        while (entryIterator.hasNext()) {
+            Map.Entry<Jedis, Map<String, String>> entry = entryIterator.next();
+            Pipeline pipelined = entry.getKey().pipelined();
+            Iterator<Map.Entry<String, String>> iterator = entry.getValue().entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, String> next = iterator.next();
+                pipelined.set(next.getKey(), next.getValue());
+            }
+            pipelined.sync();
+        }
+        Jedis_01.closeJedis(jedisPools);
     }
 
     @Test

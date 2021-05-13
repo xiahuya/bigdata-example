@@ -29,7 +29,7 @@ public class ProduceMsg {
         String msg = modle.replace("${table}", tableName);
         msg = msg.replace("${rowkey}", rowkey);
         msg = msg.replace("${currentTime}", sdf.format(new Date()));
-        log.debug(msg);
+        log.info(msg);
         return new ProducerRecord(topic, msg);
     }
 
