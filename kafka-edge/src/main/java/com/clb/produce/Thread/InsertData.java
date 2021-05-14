@@ -37,13 +37,13 @@ public class InsertData implements Runnable {
                 ProducerRecord<String, String> msg = ProduceMsg.buildMsg(String.valueOf(i), topic);
                 producer.send(msg);
 
-//                if (i % 1000 == 0) {
-//                    try {
-//                        Thread.sleep(800);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+                if (i % 160000 == 0) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
             index++;
         }

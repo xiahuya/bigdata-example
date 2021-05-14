@@ -26,8 +26,8 @@ public class RedisMain {
         ExecutorService service = Executors.newFixedThreadPool(threadCount);
         //LinkedList<String> data = dataKey(1000000);
         for (int i = 0; i < threadCount; i++) {
-            service.submit(new RedisClusterReadThread(cdl));
-            //service.submit(new RedisClusterWriteThread(cdl));
+            //service.submit(new RedisClusterReadThread(cdl));
+            service.submit(new RedisClusterWriteThread(cdl));
 //            service.submit(new RedisInstanceReadThread(null, cdl));
 //            service.submit(new RedisInstanceReadThread(null, cdl));
         }
@@ -58,9 +58,9 @@ public class RedisMain {
     public static Map<String, String> dataKeyValue(int count) {
         Map<String, String> result = new HashMap<>();
         int table = random(RedisMain.random, 1, 45);
-        for (int key = 1; key < count; key++) {
-            key = random(RedisMain.random, 1, 300000);
-            String format = String.format(tableModel, table, key);
+        for (int i = 1; i <= count; i++) {
+            //key = random(RedisMain.random, 1, 300000);
+            String format = String.format(tableModel, table, i);
             result.put(format, format);
         }
         return result;

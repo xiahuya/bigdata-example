@@ -19,13 +19,12 @@ public class RandomProduceMsg {
     private static String topic = "kafka_join";
     private static List<String> topicList;
     private static int count = 300000;
-    private static int INDEX_T = 2;
+    private static int INDEX_T = 45;
 
     private static Random random;
 
     public static void main(String[] args) {
-//        topicList = Arrays.asList("kafka_join", "kafka_join2");
-        topicList = Arrays.asList("kafka_join3");
+        topicList = Arrays.asList("kafka_join", "kafka_join2", "kafka_join3");
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(ProduceTool.getProp());
         new RandomProduceMsg().start(topicList, count, producer);
 //        new RandomProduceMsg().startOggMsg(topic, count, producer);
