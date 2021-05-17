@@ -28,6 +28,7 @@
         <module>orc</module>
         <module>redis</module>
         <module>flink-submit</module>
+        <module>sql-parse</module>
     </modules>
 
     <properties>
