@@ -1,12 +1,15 @@
+import java.util.HashMap;
+
 /**
  * @author Xiahu
  * @create 2021/5/12
  */
 public class Test {
     public static void main(String[] args) {
-        String TABLE = "xh.testTable_%s";
-        for (int i = 1; i <= 45; i++) {
-            System.out.println(String.format(TABLE, i));
-        }
+        String key = "张三";
+        int h;
+        int i = (h = key.hashCode()) ^ (h >>> 16);
+        System.out.println(i);
+        System.out.println(15 & i);
     }
 }

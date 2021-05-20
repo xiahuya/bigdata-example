@@ -29,6 +29,7 @@
         <module>redis</module>
         <module>flink-submit</module>
         <module>sql-parse</module>
+        <module>hoodie-flink</module>
     </modules>
 
     <properties>
