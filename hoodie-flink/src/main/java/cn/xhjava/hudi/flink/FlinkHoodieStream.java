@@ -6,9 +6,11 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.formats.json.JsonRowDataDeserializationSchema;
 import org.apache.flink.formats.json.TimestampFormat;
 import org.apache.flink.runtime.state.filesystem.FsStateBackend;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.operators.KeyedProcessOperator;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
+import org.apache.flink.table.data.RowData;
 import org.apache.flink.table.runtime.typeutils.InternalTypeInfo;
 import org.apache.flink.table.types.logical.RowType;
 import org.apache.hudi.common.model.HoodieRecord;
@@ -27,7 +29,7 @@ import java.util.Properties;
  * @author Xiahu
  * @create 2021-05-20
  */
-public class FlinkHoodieStreamV3 {
+public class FlinkHoodieStream {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -53,15 +55,13 @@ public class FlinkHoodieStreamV3 {
         Properties kafkaProps = StreamerUtil.appendKafkaProps(cfg);
 
         // Read from kafka source
-        RowType rowType =
-                (RowType) AvroSchemaConverter.convertToDataType(StreamerUtil.getSourceSchema(cfg))
-                        .getLogicalType();
+        RowType rowType = (RowType) AvroSchemaConverter.convertToDataType(StreamerUtil.getSourceSchema(cfg)).getLogicalType();
         Configuration conf = FlinkOptions.fromStreamerConfig(cfg);
         int numWriteTask = conf.getInteger(FlinkOptions.WRITE_TASKS);
         StreamWriteOperatorFactory<HoodieRecord> operatorFactory =
                 new StreamWriteOperatorFactory<>(conf);
 
-        env.addSource(new FlinkKafkaConsumer<>(
+        SingleOutputStreamOperator<RowData> source = env.addSource(new FlinkKafkaConsumer<>(
                 cfg.kafkaTopic,
                 new JsonRowDataDeserializationSchema(
                         rowType,
@@ -71,8 +71,9 @@ public class FlinkHoodieStreamV3 {
                         TimestampFormat.ISO_8601
                 ), kafkaProps))
                 .name("kafka_source")
-                .uid("uid_kafka_source")
-                .map(new RowDataToHoodieFunction<>(rowType, conf), TypeInformation.of(HoodieRecord.class))
+                .uid("uid_kafka_source");
+        source.printToErr();
+                /*.map(new RowDataToHoodieFunction<>(rowType, conf), TypeInformation.of(HoodieRecord.class))
                 // Key-by partition path, to avoid multiple subtasks write to a partition at the same time
                 .keyBy(HoodieRecord::getPartitionPath)
                 .transform(
@@ -88,7 +89,7 @@ public class FlinkHoodieStreamV3 {
                 .addSink(new CleanFunction<>(conf))
                 .setParallelism(1)
                 .name("clean_commits")
-                .uid("uid_clean_commits");
+                .uid("uid_clean_commits");*/
 
         env.execute(cfg.targetTableName);
     }
