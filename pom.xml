@@ -30,6 +30,7 @@
         <module>flink-submit</module>
         <module>sql-parse</module>
         <module>hoodie-flink</module>
+        <module>hoodie-spark-compact</module>
     </modules>
 
     <properties>

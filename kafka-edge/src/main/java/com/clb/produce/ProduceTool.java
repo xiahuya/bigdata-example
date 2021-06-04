@@ -23,7 +23,7 @@ public class ProduceTool {
         /*props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");*/
         //添加拦截器
-       /* List<String> interceptor = new ArrayList<>();
+        /* List<String> interceptor = new ArrayList<>();
         interceptor.add("com.clb.interceptor.produce.MyProducerInterceptor");
         props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, interceptor);*/
         return props;
