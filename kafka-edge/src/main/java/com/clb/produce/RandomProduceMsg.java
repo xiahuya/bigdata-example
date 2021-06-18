@@ -1,6 +1,7 @@
 package com.clb.produce;
 
 import com.clb.produce.Thread.InsertData;
+import com.clb.produce.Thread.ProductJsonMsg;
 import com.clb.produce.Thread.ProductOggMsg;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -23,14 +24,42 @@ public class RandomProduceMsg {
     private static String topic = "kafka_join";
     private static List<String> topicList;
     private static int count = 1000000;
-    private static int INDEX_T = 20;
+    private static int INDEX_T = 1;
 
 
     public static void main(String[] args) {
         topicList = Arrays.asList("kafka_join", "kafka_join2", "kafka_join3");
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(ProduceTool.getProp());
-        //new RandomProduceMsg().start(topicList, count, producer);
-        new RandomProduceMsg().startOggMsg(count, producer);
+//        new RandomProduceMsg().start(topicList, count, producer);
+//        new RandomProduceMsg().startOggMsg(count, producer);
+        new RandomProduceMsg().startJsonMsg(count, producer);
+    }
+
+    public void startJsonMsg(int count, KafkaProducer<String, String> producer) {
+        long startTime = System.currentTimeMillis();
+        String TABLE = "xh.test_";
+        String topic = "hoodie_callback";
+        CountDownLatch cdl = new CountDownLatch(1);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        for (int j = 1; j <= INDEX_T; j++) {
+            executorService.submit(new ProductJsonMsg(count, topic, TABLE + j, cdl, producer));
+        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    cdl.await();
+                    executorService.shutdown();
+                    long endTime = System.currentTimeMillis();
+                    log.info("总共写入数据: {} ,耗费时间: {} s", count + INDEX_T, (endTime - startTime) / 1000.0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    producer.close();
+                }
+            }
+        }).start();
     }
 
 

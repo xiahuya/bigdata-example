@@ -7,7 +7,7 @@ object Query {
   def main(args: Array[String]): Unit = {
 
     //val basePath = "".trim
-    val basePath = "/datalake/hid0101_cache_xdcs_pacs_hj_test/hudi_schema_test/"
+    val basePath = "/tmp/xiahu/retained/*/*"
     val spark = SparkSession.builder
       .appName("query")
       .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")

@@ -31,6 +31,7 @@
         <module>sql-parse</module>
         <module>hoodie-flink</module>
         <module>hoodie-spark-compact</module>
+        <module>hoodie-callback</module>
     </modules>
 
     <properties>

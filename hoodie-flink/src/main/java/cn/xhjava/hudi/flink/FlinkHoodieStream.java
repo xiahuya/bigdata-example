@@ -33,9 +33,9 @@ public class FlinkHoodieStream {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         final FlinkStreamerConfig cfg = new FlinkStreamerConfig();
-        cfg.recordKeyField = "rowkey";
-        cfg.sourceOrderingField = "lastupdatedttm";
-        cfg.partitionPathField = "fk_id";
+//        cfg.recordKeyField = "rowkey";
+//        cfg.sourceOrderingField = "lastupdatedttm";
+//        cfg.partitionPathField = "fk_id";
         JCommander cmd = new JCommander(cfg, null, args);
         if (cfg.help || args.length == 0) {
             cmd.usage();
@@ -63,8 +63,7 @@ public class FlinkHoodieStream {
         RowType rowType = (RowType) AvroSchemaConverter.convertToDataType(SchemaUtil.schemaParse(fieldName, fieldType, "xh.test")).getLogicalType();
 
         Configuration conf = FlinkOptions.fromStreamerConfig(cfg);
-//        int numWriteTask = conf.getInteger(FlinkOptions.WRITE_TASKS);
-        int numWriteTask = 1;
+        int numWriteTask = conf.getInteger(FlinkOptions.WRITE_TASKS);
         StreamWriteOperatorFactory<HoodieRecord> operatorFactory =
                 new StreamWriteOperatorFactory<>(conf);
 

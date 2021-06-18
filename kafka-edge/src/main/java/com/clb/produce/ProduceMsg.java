@@ -38,7 +38,19 @@ public class ProduceMsg {
         msg = msg.replace("${rowkey}", rowkey);
         msg = msg.replace("${partition}", partitionList.get(random(random, 0, partitionList.size())));
         msg = msg.replace("${currentTime}", sdf.format(new Date()));
-        //log.info(msg);
+        log.info(msg);
+        return new ProducerRecord(topic, msg);
+    }
+
+    private static String modle2 = "{\"id\": \"${rowkey}\",\"fk_id\": \"${partition}\",\"qfxh\": \"94\",\"jdpj\": \"AFLWAI\",\"nioroa\": \"RTABPQ\"," +
+            "\"gwvz\": \"ZJRON\",\"joqtf\": \"VEZB\",\"isdeleted\": \"0\",\"lastupdatedttm\": \"${currentTime}\",\"rowkey\": \"${rowkey}\"}";
+
+    public static ProducerRecord<String, String> buildJsonMsg(String rowkey, String topic, String tableName) {
+        String msg = modle2.replace("${table}", tableName);
+        msg = msg.replace("${rowkey}", rowkey);
+        msg = msg.replace("${partition}", partitionList.get(random(random, 0, partitionList.size())));
+        msg = msg.replace("${currentTime}", sdf.format(new Date()));
+        log.info(msg);
         return new ProducerRecord(topic, msg);
     }
 

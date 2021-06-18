@@ -16,7 +16,7 @@
         <scala.compat.version>2.11.8</scala.compat.version>
         <jdk.version>1.8</jdk.version>
         <scala.binary.version>2.11</scala.binary.version>
-        <spark.version>2.4.3</spark.version>
+        <spark.version>2.4.4</spark.version>
         <hoodie.version>0.5.2-incubating</hoodie.version>
         <scalikejdbc.version>2.5.0</scalikejdbc.version>
         <hadoop.version>2.6.0</hadoop.version>
