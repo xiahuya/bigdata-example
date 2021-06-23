@@ -26,7 +26,7 @@ public class HoodieCallbackServiceImpl implements HoodieCallbackService {
     @Override
     public void hoodieCallbackOption(HoodieCallbackMsg msg) {
         //hoodieClean.clean(msg);
-        //hoodieCompaction.compact(msg);
-        hoodieHiveSync.syncHive(msg);
+        hoodieCompaction.compact(msg);
+        //hoodieHiveSync.syncHive(msg);
     }
 }

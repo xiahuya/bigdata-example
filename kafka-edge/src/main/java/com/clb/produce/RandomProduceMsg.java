@@ -21,9 +21,8 @@ import java.util.concurrent.Executors;
  */
 @Slf4j
 public class RandomProduceMsg {
-    private static String topic = "kafka_join";
     private static List<String> topicList;
-    private static int count = 1000000;
+    private static int count = 5000000;
     private static int INDEX_T = 1;
 
 
@@ -38,7 +37,7 @@ public class RandomProduceMsg {
     public void startJsonMsg(int count, KafkaProducer<String, String> producer) {
         long startTime = System.currentTimeMillis();
         String TABLE = "xh.test_";
-        String topic = "hoodie_callback";
+        String topic = "flink_on_hudi_on_yarn_2";
         CountDownLatch cdl = new CountDownLatch(1);
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         for (int j = 1; j <= INDEX_T; j++) {
@@ -66,7 +65,7 @@ public class RandomProduceMsg {
     public void startOggMsg(int count, KafkaProducer<String, String> producer) {
         long startTime = System.currentTimeMillis();
         String TABLE = "xh.test_";
-        String topic = "flink_sql_kafka_test";
+        String topic = "flink_on_hudi_on_yarn";
         CountDownLatch cdl = new CountDownLatch(INDEX_T);
         ExecutorService executorService = Executors.newFixedThreadPool(INDEX_T);
         for (int j = 1; j <= INDEX_T; j++) {

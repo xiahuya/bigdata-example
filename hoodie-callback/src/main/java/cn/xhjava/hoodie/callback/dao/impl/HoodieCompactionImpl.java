@@ -2,6 +2,7 @@ package cn.xhjava.hoodie.callback.dao.impl;
 
 import cn.xhjava.hoodie.callback.dao.HoodieCompaction;
 import cn.xhjava.hoodie.callback.domain.ApplicationConf;
+import cn.xhjava.hoodie.callback.domain.ClientOutput;
 import cn.xhjava.hoodie.callback.domain.HoodieCallbackMsg;
 import cn.xhjava.hoodie.callback.util.SSHClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,17 @@ public class HoodieCompactionImpl implements HoodieCompaction {
     private ApplicationConf conf;
 
     private SSHClient sshClient;
-    
+
 
     @Override
     public void compact(HoodieCallbackMsg msg) {
         sshClient = new SSHClient(conf.getSshShellHost(), conf.getSshShellPort(), conf.getSshShellUser(), conf.getSshShellPass());
+        try {
+            ClientOutput clientOutput = sshClient.execCommand("cat  /home/xiahu/hive-site.xml");
+            String text = clientOutput.getText();
+            System.out.println(text);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
