@@ -7,8 +7,8 @@ import java.io.File;
  * @create 2021-06-23
  */
 public class FileRename {
-    private static String dirPath = "E:\\Study\\尚硅谷Java数据结构和算法\\视频";
-    private static String replaceStr = "尚硅谷-图解Java数据结构和算法-";
+    private static String dirPath = "E:\\Study\\Kubernetes\\视频";
+    private static String replaceStr = "Kubernetes";
 
     public static void main(String[] args) {
         File dir = new File(dirPath);

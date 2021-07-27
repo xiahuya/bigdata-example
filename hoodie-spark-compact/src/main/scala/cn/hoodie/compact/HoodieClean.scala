@@ -12,7 +12,7 @@ import org.apache.spark.{SparkConf, SparkContext}
   */
 object HoodieClean {
   def main(args: Array[String]): Unit = {
-    val conf = new SparkConf().setMaster("local[3]").setAppName("Word Count")
+   /* val conf = new SparkConf().setMaster("local[3]").setAppName("Word Count")
     val jsc = new SparkContext(conf)
     val commitTime = args(0)
     val basePath = args(1)
@@ -23,7 +23,7 @@ object HoodieClean {
     val client = hoodieWriteClient.getOrElse(DataSourceUtils.createHoodieClient(jsc, null, basePath,
       tableName, HoodieWriteUtil.buildPamater()
     )).asInstanceOf[SparkRDDWriteClient[HoodieRecordPayload[Nothing]]]
-    client.simpleClean(commitTime, true)
-    System.exit(0)
+    //client.simpleClean(commitTime, true)
+    System.exit(0)*/
   }
 }

@@ -3,16 +3,16 @@ package cn.hoodie.compact
 import cn.hoodie.compact.util.HoodieWriteUtil
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
-import org.apache.hadoop.hive.conf.HiveConf
+//import org.apache.hadoop.hive.conf.HiveConf
 import org.apache.hudi.hive.{HiveSyncConfig, HiveSyncTool}
 
 
 object HoodieSyncHive {
 
-  def main(args: Array[String]): Unit = {
+  /*def main(args: Array[String]): Unit = {
     val confPropPath = "D:\\code\\github\\bigdata-example\\hoodie-spark-compact\\src\\main\\resources\\hoodie-synchive.properties"
-    val basePath = "/tmp/hoodieTableSink"
-    val tableName = "hoodieTableSink"
+    val basePath = "/tmp/xiahu/xh_cow"
+    val tableName = "xh_cow"
     val isPartitionTable = true
     syncHive(new Path(basePath), confPropPath, tableName, isPartitionTable)
   }
@@ -23,6 +23,6 @@ object HoodieSyncHive {
     val hiveConf = new HiveConf()
     val fs = FileSystem.get(new Configuration())
     new HiveSyncTool(hiveSyncConfig, hiveConf, fs).syncHoodieTable()
-  }
+  }*/
 }
 

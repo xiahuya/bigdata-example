@@ -34,12 +34,12 @@ public class ProductJsonMsg implements Runnable {
     public void run() {
         for (int i = 1; i <= msgCount; i++) {
             ProducerRecord<String, String> msg = ProduceMsg.buildJsonMsg(String.valueOf(i), topic, tableName);
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
             producer.send(msg);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         cdl.countDown();
         log.info("{} down~~~~", Thread.currentThread().getName());

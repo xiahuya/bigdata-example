@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class RandomProduceMsg {
     private static List<String> topicList;
-    private static int count = 5000000;
+    private static int count = 300;
     private static int INDEX_T = 1;
 
 
@@ -30,14 +30,14 @@ public class RandomProduceMsg {
         topicList = Arrays.asList("kafka_join", "kafka_join2", "kafka_join3");
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(ProduceTool.getProp());
 //        new RandomProduceMsg().start(topicList, count, producer);
-//        new RandomProduceMsg().startOggMsg(count, producer);
-        new RandomProduceMsg().startJsonMsg(count, producer);
+        new RandomProduceMsg().startOggMsg(count, producer);
+//        new RandomProduceMsg().startJsonMsg(count, producer);
     }
 
     public void startJsonMsg(int count, KafkaProducer<String, String> producer) {
         long startTime = System.currentTimeMillis();
         String TABLE = "xh.test_";
-        String topic = "flink_on_hudi_on_yarn_2";
+        String topic = "xh_cow";
         CountDownLatch cdl = new CountDownLatch(1);
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         for (int j = 1; j <= INDEX_T; j++) {
@@ -65,7 +65,8 @@ public class RandomProduceMsg {
     public void startOggMsg(int count, KafkaProducer<String, String> producer) {
         long startTime = System.currentTimeMillis();
         String TABLE = "xh.test_";
-        String topic = "flink_on_hudi_on_yarn";
+        String topic = "flink_on_hudi_on_yarn_2";
+//        String topic = "flink_sql_kafkasource";
         CountDownLatch cdl = new CountDownLatch(INDEX_T);
         ExecutorService executorService = Executors.newFixedThreadPool(INDEX_T);
         for (int j = 1; j <= INDEX_T; j++) {

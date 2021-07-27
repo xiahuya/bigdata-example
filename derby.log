@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Fri Jun 18 14:45:02 CST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-017a-1ddd-9ef0-00001448f730 
+Wed Jun 23 15:53:26 CST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-017a-37dc-0fab-000021961d58 
 on database directory D:\code\github\bigdata-example\metastore_db with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
 Loaded from file:/D:/Tool/apache-maven-3.5.4/repository/org/apache/derby/derby/10.10.2.0/derby-10.10.2.0.jar
 java.vendor=Oracle Corporation

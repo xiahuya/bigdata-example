@@ -27,12 +27,14 @@
         <module>parquet</module>
         <module>orc</module>
         <module>redis</module>
-        <module>flink-submit</module>
         <module>sql-parse</module>
         <module>hoodie-flink</module>
         <module>hoodie-spark-compact</module>
         <module>hoodie-callback</module>
         <module>tool</module>
+        <module>greenplum</module>
+        <module>elasticsearch</module>
+        <module>http-request</module>
     </modules>
 
     <properties>
@@ -45,8 +47,21 @@
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.68</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
     </dependencies>
-
-
-
 </project>
