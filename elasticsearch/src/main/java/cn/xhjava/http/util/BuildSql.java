@@ -11,6 +11,7 @@ import java.util.Random;
  */
 public class BuildSql {
     private static String SQL_TEMP = "select %s,sum(price) as price from ab_ip_feelist where chargedate >= '%s' and chargedate <= '%s' group by %s limit 20";
+//    private static String SQL_TEMP = "select price as price from ab_ip_feelist limit 20";
     private static String[] dateArray = {"01-01", "02-01", "03-01", "04-01", "05-01", "06-01", "07-01", "08-01", "09-01", "10-01", "11-01", "12-01"};
     private static String[] groupByArray = {"doctorname", "deptname", "itemtypename"};
 

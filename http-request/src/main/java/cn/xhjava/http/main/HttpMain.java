@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class HttpMain {
     public static void main(String[] args) {
-        new HttpMain().start(10, 1, "http://localhost:9000/es/sql", "xiahu");
+        new HttpMain().start(100, 1, "http://localhost:8080/hello/world", "xiahu");
     }
 
     public void start(int threadCount, int loopNum, String api, String json) {

@@ -1,6 +1,5 @@
 package cn.xhjava.server.service;
 
-import org.springframework.stereotype.Service;
 
 import java.util.concurrent.Future;
 
@@ -9,5 +8,6 @@ import java.util.concurrent.Future;
  * @create 2021-07-27
  */
 public interface ElasticSearchJdbcRequestService {
-    Future<String> selectDataBySql(String sql);
+//    Future<String> selectDataBySql(String sql);
+    String selectDataBySql(String sql);
 }

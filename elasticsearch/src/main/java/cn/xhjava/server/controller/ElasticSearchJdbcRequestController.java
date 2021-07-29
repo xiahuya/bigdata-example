@@ -19,6 +19,6 @@ public class ElasticSearchJdbcRequestController {
 
     @PostMapping("/sql")
     public String selectDataBySql(@RequestBody String sql) throws Exception {
-        return elasticSearchJdbcRequestService.selectDataBySql(sql).get();
+        return elasticSearchJdbcRequestService.selectDataBySql(sql);
     }
 }

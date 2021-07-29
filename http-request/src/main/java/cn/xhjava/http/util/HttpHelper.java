@@ -54,27 +54,32 @@ public class HttpHelper {
             //log.debug(result);
         }
 
-        /*log.info("请求地址: {} , 请求数据: {}-{} , 耗费时间: {} s", api, Thread.currentThread().getName(), params, (endTime - startTime) / 1000.0);
+        log.info("请求地址: {} , 请求数据: {}-{} , 耗费时间: {} s", api, Thread.currentThread().getName(), params, (endTime - startTime) / 1000.0);
         log.info("返回结果: {}", result);
-        log.info("===============================================================");*/
-        return null;
+        log.info("===============================================================");
+        return result;
     }
 
 
     public static String doGet(String api, String params) throws IOException {
         long startTime = System.currentTimeMillis();
         long endTime = -1l;
-
+        String result = null;
         HttpGet get = new HttpGet(api);
         // 设置提交参数为application/json
         get.addHeader("Content-Type", "application/json");
         CloseableHttpResponse response = httpClient.execute(get);
         if (response.getStatusLine().getStatusCode() == 200) {
             endTime = System.currentTimeMillis();
+            HttpEntity entity = response.getEntity();
+            result = EntityUtils.toString(entity, "UTF-8");
         }
 
         log.info("请求 ElastucSearch 耗费时间: {} s", (endTime - startTime) / 1000.0);
-        return null;
+        log.info("请求地址: {} , 请求数据: {}-{} , 耗费时间: {} s", api, Thread.currentThread().getName(), params, (endTime - startTime) / 1000.0);
+        log.info("返回结果: {}", result);
+        log.info("===============================================================");
+        return result;
     }
 
 }

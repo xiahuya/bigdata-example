@@ -35,6 +35,8 @@
         <module>greenplum</module>
         <module>elasticsearch</module>
         <module>http-request</module>
+        <module>netty-http-server</module>
+        <module>connect-pool</module>
     </modules>
 
     <properties>
