@@ -1,9 +1,9 @@
 package cn.xhjava.connect.pool;
 
 import cn.xhjava.connect.pool.domain.ConnectBean;
-import cn.xhjava.connect.pool.domain.ConnectPoolConstant;
 import cn.xhjava.connect.pool.strategy.DBSourceProducer;
 import cn.xhjava.connect.pool.strategy.DbSource;
+import cn.xhjava.connect.pool.strategy.db.ClickHouseSource;
 import cn.xhjava.connect.pool.strategy.db.ElastcSearchSource;
 import cn.xhjava.connect.pool.strategy.db.MySqlSource;
 import cn.xhjava.connect.pool.util.ConnectBeanLoader;
@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import static cn.xhjava.connect.pool.domain.ConnectPoolConstant.*;
@@ -37,6 +36,9 @@ public class ConnectionPool {
             case MYSQL:
                 source = new MySqlSource();
                 break;
+            case CLICK_HOUSE:
+                source = new ClickHouseSource();
+                break;
         }
         connPool = producer.produce(source);
     }
@@ -49,19 +51,7 @@ public class ConnectionPool {
             e.printStackTrace();
         }
         return conn;
-        /*//返回Connection的代理对象
-        return (Connection) Proxy.newProxyInstance(ConnectionPool.class.getClassLoader(), conn.getClass().getInterfaces(), new InvocationHandler() {
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                if (!"close".equals(method.getName())) {
-                    return method.invoke(conn, args);
-                } else {
-                    connPool.put(conn);
-                    System.out.println("关闭连接，实际还给了连接池");
-                    System.out.println("池中连接数为 " + connPool.size());
-                    return null;
-                }
-            }
-        });*/
+
     }
 
 
@@ -76,33 +66,12 @@ public class ConnectionPool {
             }
             if (connPool != null) {
                 connPool.put(conn);
-                log.info("归还Connection,当前池中Connection数量: {}", connPool.size());
+                log.debug("归还Connection,当前池中Connection数量: {}", connPool.size());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        ConnectionPool connectionPool = new ConnectionPool();
-
-        for (int i = 0; i < 20; i++) {
-            new Thread(() -> {
-                Random random = new Random();
-
-                Connection connection = connectionPool.getConnection();
-                log.info("{} 获取到Connection,现在开始休眠", Thread.currentThread().getName());
-
-                try {
-                    Thread.sleep((random.nextInt(20) + 10) * 1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                connectionPool.close(connection, null, null);
-            }).start();
         }
     }
 }

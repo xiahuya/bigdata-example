@@ -39,7 +39,7 @@ object HoodieCompaction {
 
 
     //执行compact(正式合并逻辑)
-    client.simpleCompact()
+    //client.simpleCompact()
 
 
     jsc.stop

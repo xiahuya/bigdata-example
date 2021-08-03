@@ -15,6 +15,7 @@ public class ConnectPoolConstant {
 
     public static final String ELASTIC_SEARCH = "ElasticSearch";
     public static final String MYSQL = "MySql";
+    public static final String CLICK_HOUSE = "ClickHouse";
 
 
 

@@ -21,10 +21,10 @@ public class MySqlSource implements DbSource {
     public LinkedBlockingQueue<Connection> buildConnPool(ConnectBean connectBean) {
         connPool = new LinkedBlockingQueue<>();
         try {
-            Class.forName(connectBean.getConnDriver());
+            Class.forName("com.mysql.jdbc.Driver");
             for (int i = 0; i < connectBean.getConnPoolSize(); i++) {
                 connPool.put(DriverManager.getConnection(connectBean.getConnJdbcUrl(), connectBean.getConnUsername(), connectBean.getConnPassword()));
-                log.info("初始化数据库连接池,第 {} 个MySql连接添加到池中", i);
+                log.debug("初始化数据库连接池,第 {} 个MySql连接添加到池中", i);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -13,27 +13,31 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author Xiahu
- * @create 2021-07-29
+ * @create 2021-08-01
+ * jdbc:clickhouse://192.168.0.113:9000/default
  */
 @Slf4j
-public class ElastcSearchSource implements DbSource {
+public class ClickHouseSource implements DbSource {
     private LinkedBlockingQueue<Connection> connPool = null;
 
     @Override
     public LinkedBlockingQueue<Connection> buildConnPool(ConnectBean connectBean) {
         connPool = new LinkedBlockingQueue<>();
-        for (int i = 1; i <= connectBean.getConnPoolSize(); i++) {
+        try {
+            Class.forName("ru.yandex.clickhouse.ClickHouseDriver");
             List<String> jdbcUrls = Arrays.asList(connectBean.getConnJdbcUrl().split(","));
-            try {
-                String jdbcUrl = jdbcUrls.get(i % jdbcUrls.size());
-                connPool.put(DriverManager.getConnection(jdbcUrl));
-                log.debug("初始化数据库连接池,第 {} 个ElasticSearch连接添加到池中", i);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
+            for (int i = 0; i < connectBean.getConnPoolSize(); i++) {
+                String jdbcUrl = jdbcUrls.get(i % jdbcUrls.size());
+                connPool.put(DriverManager.getConnection(jdbcUrl, connectBean.getConnUsername(), connectBean.getConnPassword()));
+                log.debug("初始化数据库连接池,第 {} 个ClickHouse连接添加到池中", i);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return connPool;
     }
