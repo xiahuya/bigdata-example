@@ -28,9 +28,9 @@ public class ProduceMsg {
     }
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-    private static String modle = "{\"table\":\"${table}\",\"op_type\":\"I\",\"op_ts\":\"2019-03-19 00:50:31.678015\"," +
-            "\"current_ts\":\"2020-05-07T16:25:34.000290\",\"pos\":\"04172325706511144646\",\"primary_keys\":[\"id\"]," +
-            "\"after\":{\"id\":\"${rowkey}\",\"fk_id\":\"${partition}\",\"qfxh\":\"94\",\"jdpj\":\"AFLWAI\",\"nioroa\":\"RTABPQ\",\"gwvz\":\"ZJRON\",\"joqtf\":\"VEZB\"," +
+    private static String modle = "{\"table\":\"${table}\",\"op_type\":\"U\",\"op_ts\":\"2019-03-19 00:50:31.678015\"," +
+            "\"current_ts\":\"${currentTime}\",\"pos\":\"04172325706511144646\",\"primary_keys\":[\"id\",\"fk_id\"]," +
+            "\"after\":{\"id\":\"${rowkey}\",\"fk_id\":\"${rowkey}\",\"qfxh\":\"\",\"jdpj\":" + null + ",\"nioroa\":\"RTABPQ\",\"gwvz\":\"ZJRON\",\"joqtf\":\"VEZB\"," +
             "\"isdeleted\":\"0\",\"lastupdatedttm\":\"${currentTime}\",\"rowkey\":\"${rowkey}\"}}";
 
     public static ProducerRecord<String, String> buildOggMsg(String rowkey, String topic, String tableName) {

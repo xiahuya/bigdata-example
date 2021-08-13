@@ -36,11 +36,11 @@ public class ProductOggMsg implements Runnable {
         for (int i = 1; i <= msgCount; i++) {
             ProducerRecord<String, String> msg = ProduceMsg.buildOggMsg(String.valueOf(i), topic, tableName);
             producer.send(msg);
-            /*try {
+            try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }*/
+            }
         }
         cdl.countDown();
         log.info("{} down~~~~", Thread.currentThread().getName());
