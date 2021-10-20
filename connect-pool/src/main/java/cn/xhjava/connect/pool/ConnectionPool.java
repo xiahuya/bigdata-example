@@ -6,6 +6,7 @@ import cn.xhjava.connect.pool.strategy.DbSource;
 import cn.xhjava.connect.pool.strategy.db.ClickHouseSource;
 import cn.xhjava.connect.pool.strategy.db.ElastcSearchSource;
 import cn.xhjava.connect.pool.strategy.db.MySqlSource;
+import cn.xhjava.connect.pool.strategy.db.OracleSource;
 import cn.xhjava.connect.pool.util.ConnectBeanLoader;
 import lombok.extern.slf4j.Slf4j;
 import java.sql.Connection;
@@ -38,6 +39,9 @@ public class ConnectionPool {
                 break;
             case CLICK_HOUSE:
                 source = new ClickHouseSource();
+                break;
+            case ORACLE:
+                source = new OracleSource();
                 break;
         }
         connPool = producer.produce(source);

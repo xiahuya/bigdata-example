@@ -9,35 +9,21 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <!--<module>hoodie-import-by-shell</module>-->
-        <module>hoodie-import-trigger</module>
-        <!--<module>hoodie-import-sparkILoop</module>-->
-        <!--<module>hoodie-curd-test-kerberos</module>-->
-        <module>hoodie-curd-test</module>
-        <module>flink-stream-kafka</module>
-        <module>kudu-api</module>
-        <module>kafka-edge</module>
-        <module>hbase-demo</module>
-        <module>flume</module>
-        <module>presto</module>
-        <module>hive</module>
-        <module>zookeeper</module>
+
+
         <module>prometheus</module>
         <module>influxdb</module>
-        <module>parquet</module>
-        <module>orc</module>
-        <module>redis</module>
+
         <module>sql-parse</module>
-        <module>hoodie-flink</module>
-        <module>hoodie-spark-compact</module>
-        <module>hoodie-callback</module>
         <module>tool</module>
-        <module>greenplum</module>
-        <module>elasticsearch</module>
+        <module>spark-shell-test</module>
         <module>http-request</module>
         <module>netty-http-server</module>
         <module>connect-pool</module>
-        <module>click-house</module>
+
+        <module>jdbc-connect</module>
+        <module>hoodie</module>
+        <module>hadoop-ecology</module>
     </modules>
 
     <properties>
