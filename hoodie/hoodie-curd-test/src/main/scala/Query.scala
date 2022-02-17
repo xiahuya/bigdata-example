@@ -8,17 +8,18 @@ object Query {
   def main(args: Array[String]): Unit = {
 
     //val basePath = "".trim
-    val basePath = "/tmp/xiahu/xh_mor/*/*"
+    val basePath = "/user/xiahu/hudi/hoodie_xh_table_5/"
     val spark = SparkSession.builder
       .appName("query")
 
       .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+      .config("spark.sql.hive.convertMetastoreParquet","false")
       .master("local[3]")
       .getOrCreate()
     val tripsSnapshotDF = spark.
       read.
-      format("org.apache.hudi").
-      option(DataSourceReadOptions.QUERY_TYPE_OPT_KEY, DataSourceReadOptions.QUERY_TYPE_SNAPSHOT_OPT_VAL)
+      format("org.apache.hudi")
+      //option(DataSourceReadOptions.QUERY_TYPE_OPT_KEY, DataSourceReadOptions.QUERY_TYPE_SNAPSHOT_OPT_VAL)
       .load(basePath) // /*/*
 
     tripsSnapshotDF.show(100000)

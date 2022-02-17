@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hoodie</artifactId>
+    <packaging>pom</packaging>
 
     <modules>
         <module>hoodie-callback</module>
@@ -21,6 +22,7 @@
         <module>hoodie-curd-test-kerberos</module>
         <module>hoodie-flink</module>
         <module>hoodie-spark-compact</module>
+        <module>hoodie-09</module>
     </modules>
 
     <properties>
