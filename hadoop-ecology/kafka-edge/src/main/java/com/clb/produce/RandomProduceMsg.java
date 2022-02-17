@@ -22,8 +22,8 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class RandomProduceMsg {
     private static List<String> topicList;
-    private static int count = 1000;
-    private static int INDEX_T = 1;
+    private static int count = 100;
+    private static int INDEX_T = 3;
 
 
     public static void main(String[] args) {
@@ -34,10 +34,11 @@ public class RandomProduceMsg {
 //        new RandomProduceMsg().startJsonMsg(count, producer);
     }
 
-    public void startJsonMsg(int count, KafkaProducer<String, String> producer) {
+    //用于生产FlinkStreamSql数据
+    /*public void startJsonMsg(int count, KafkaProducer<String, String> producer) {
         long startTime = System.currentTimeMillis();
         String TABLE = "xh.test_";
-        String topic = "xh_cow";
+        String topic = "flink_hudi_20211222";
         CountDownLatch cdl = new CountDownLatch(1);
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         for (int j = 1; j <= INDEX_T; j++) {
@@ -59,23 +60,13 @@ public class RandomProduceMsg {
                 }
             }
         }).start();
-    }
+    }*/
 
 
     public void startOggMsg(int count, KafkaProducer<String, String> producer) {
         long startTime = System.currentTimeMillis();
-//        String TABLE = "hid0101_his_cache_xh.test_";
-        String TABLE = "hid0101_cache_his_dhcapp_nemr.test_";
-//        String TABLE = "nuwa_consumer_oracle_sink.test_";
-//        String topic = "flink_stream_sql";
-//        String topic = "kafka_to_oracle";
-//        String topic = "kafka_to_hbase";
-//        String topic = "kafka_to_hdfs";
-//        String topic = "kafka_to_mysql";
-//        String topic = "dip_data_pre_process";
-        String topic = "unnest-join-table-pre";
-        //String topic = "nuwa_hudi";
-        //String topic = "flink_sql_kafkasource";
+        String TABLE = "xh.test_";
+        String topic = "flink-cdc-kafka-20220216";
         CountDownLatch cdl = new CountDownLatch(INDEX_T);
         ExecutorService executorService = Executors.newFixedThreadPool(INDEX_T);
         for (int j = 1; j <= INDEX_T; j++) {
