@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bigdata-example.iml" filepath="$PROJECT_DIR$/bigdata-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc-connect/click-house/click-house.iml" filepath="$PROJECT_DIR$/jdbc-connect/click-house/click-house.iml" />
+      <module fileurl="file://$PROJECT_DIR$/connect-pool/connect-pool.iml" filepath="$PROJECT_DIR$/connect-pool/connect-pool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/elasticsearch/elasticsearch.iml" filepath="$PROJECT_DIR$/hadoop-ecology/elasticsearch/elasticsearch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/flume/flume.iml" filepath="$PROJECT_DIR$/hadoop-ecology/flume/flume.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc-connect/greenplum/greenplum.iml" filepath="$PROJECT_DIR$/jdbc-connect/greenplum/greenplum.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/hadoop-ecology.iml" filepath="$PROJECT_DIR$/hadoop-ecology/hadoop-ecology.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/hbase/hbase.iml" filepath="$PROJECT_DIR$/hadoop-ecology/hbase/hbase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/hive/hive.iml" filepath="$PROJECT_DIR$/hadoop-ecology/hive/hive.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hoodie/hoodie.iml" filepath="$PROJECT_DIR$/hoodie/hoodie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hoodie/hoodie-09/hoodie-09.iml" filepath="$PROJECT_DIR$/hoodie/hoodie-09/hoodie-09.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hoodie/hoodie-callback/hoodie-callback.iml" filepath="$PROJECT_DIR$/hoodie/hoodie-callback/hoodie-callback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hoodie/hoodie-curd-test/hoodie-curd-test.iml" filepath="$PROJECT_DIR$/hoodie/hoodie-curd-test/hoodie-curd-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hoodie/hoodie-curd-test-kerberos/hoodie-curd-test-kerberos.iml" filepath="$PROJECT_DIR$/hoodie/hoodie-curd-test-kerberos/hoodie-curd-test-kerberos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hoodie/hoodie-import-by-shell/hoodie-import-by-shell.iml" filepath="$PROJECT_DIR$/hoodie/hoodie-import-by-shell/hoodie-import-by-shell.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hoodie/hoodie-import-sparkILoop/hoodie-import-sparkILoop.iml" filepath="$PROJECT_DIR$/hoodie/hoodie-import-sparkILoop/hoodie-import-sparkILoop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hoodie/hoodie-import-trigger/hoodie-import-trigger.iml" filepath="$PROJECT_DIR$/hoodie/hoodie-import-trigger/hoodie-import-trigger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/http-request/http-request.iml" filepath="$PROJECT_DIR$/http-request/http-request.iml" />
+      <module fileurl="file://$PROJECT_DIR$/influxdb/influxdb.iml" filepath="$PROJECT_DIR$/influxdb/influxdb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc-connect/jdbc-connect.iml" filepath="$PROJECT_DIR$/jdbc-connect/jdbc-connect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jvm-info/jvm-info.iml" filepath="$PROJECT_DIR$/jvm-info/jvm-info.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/kafka-3x/kafka-3x.iml" filepath="$PROJECT_DIR$/hadoop-ecology/kafka-3x/kafka-3x.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/kafka-edge/kafka-edge.iml" filepath="$PROJECT_DIR$/hadoop-ecology/kafka-edge/kafka-edge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/kudu-api/kudu-api.iml" filepath="$PROJECT_DIR$/hadoop-ecology/kudu-api/kudu-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc-connect/mysql/mysql.iml" filepath="$PROJECT_DIR$/jdbc-connect/mysql/mysql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/netty-http-server/netty-http-server.iml" filepath="$PROJECT_DIR$/netty-http-server/netty-http-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc-connect/oracle/oracle.iml" filepath="$PROJECT_DIR$/jdbc-connect/oracle/oracle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/parquet/parquet.iml" filepath="$PROJECT_DIR$/hadoop-ecology/parquet/parquet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc-connect/presto/presto.iml" filepath="$PROJECT_DIR$/jdbc-connect/presto/presto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/prometheus/prometheus.iml" filepath="$PROJECT_DIR$/prometheus/prometheus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc-connect/redis/redis.iml" filepath="$PROJECT_DIR$/jdbc-connect/redis/redis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spark-shell-test/spark-shell-test.iml" filepath="$PROJECT_DIR$/spark-shell-test/spark-shell-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sql-parse/sql-parse.iml" filepath="$PROJECT_DIR$/sql-parse/sql-parse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tool/tool.iml" filepath="$PROJECT_DIR$/tool/tool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hadoop-ecology/zookeeper/zookeeper.iml" filepath="$PROJECT_DIR$/hadoop-ecology/zookeeper/zookeeper.iml" />
+    </modules>
+  </component>
+</project>
