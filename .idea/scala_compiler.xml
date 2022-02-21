@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ScalaCompilerConfiguration">
-    <profile name="Maven 1" modules="hoodie-curd-test,hoodie-curd-test-kerberos,hoodie-import-by-shell,hoodie-import-sparkILoop,hoodie-import-trigger,hoodie-spark-compact,spark-shell-test" />
-  </component>
-</project>
