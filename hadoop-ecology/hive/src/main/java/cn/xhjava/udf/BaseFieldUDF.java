@@ -128,9 +128,9 @@ public class BaseFieldUDF extends UDF {
                 "\t\t}\n" +
                 "\t]\n" +
                 "}\n";
-        String mid = new BaseFieldUDF().evaluate(line, "et");
-
-        System.out.println(mid);
+//        String mid = new BaseFieldUDF().evaluate(line, "et");
+//
+//        System.out.println(mid);
 
     }
 

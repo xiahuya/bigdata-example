@@ -22,5 +22,6 @@
         <module>parquet</module>
         <module>elasticsearch</module>
         <module>kafka-3x</module>
+        <module>hive-jdbc-auth</module>
     </modules>
 </project>

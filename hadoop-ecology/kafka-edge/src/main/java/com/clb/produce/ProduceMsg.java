@@ -18,6 +18,8 @@ public class ProduceMsg {
 
     private static String STUDENT_FORMAT = "%s,%s,%s,%s";
     private static List<String> partitionList = Arrays.asList("2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020");
+    private static List<String> hospitalList = Arrays.asList("HID0101", "HID0102", "HID0103", "HID0104", "HID0105", "HID0106");
+    private static List<String> sourceCodeList = Arrays.asList("1", "2", "3", "4", "5");
     private static List<String> formidList = Arrays.asList("549", "561", "531", "538", "540", "558", "559", "554", "307", "557", "541", "539", "542", "308", "287", "330", "556", "530", "560", "545", "552", "536", "543");
     private static Random random = new Random();
 
@@ -84,14 +86,14 @@ public class ProduceMsg {
 
     private static String modle = "{\"table\":\"${table}\",\"op_type\":\"I\",\"op_ts\":\"2019-03-19 00:50:31.678015\"," +
             "\"current_ts\":\"${currentTime}\",\"pos\":\"04172325706511144646\",\"primary_keys\":[\"id\"]," +
-            "\"after\":{\"id\":\"${rowkey}\",\"fk_id\":\"${fk_id}\",\"qfxh\":\"\",\"jdpj\":" + null + ",\"nioroa\":\"RTABPQ\",\"gwvz\":\"ZJRON\",\"joqtf\":\"VEZB\"}}";
+            "\"after\":{\"id\":\"${rowkey}\",\"fk_id\":\"${fk_id}\",\"qfxh\":\"\",\"jdpj\":" + null + ",\"nioroa\":\"RTABPQ\",\"gwvz\":\"${SOURCE_CODE}\",\"joqtf\":\"${HOSPITAL}\"}}";
 
     public static ProducerRecord<String, String> buildOggMsg(String rowkey, String topic, String tableName) {
         String msg = modle.replace("${table}", tableName);
         msg = msg.replace("${rowkey}", rowkey);
         msg = msg.replace("${fk_id}", partitionList.get(random(random, 0, partitionList.size())));
-//        msg = msg.replace("${fk_id}", "1970");
-//        msg = msg.replace("${partition}", partitionList.get(random(random, 0, partitionList.size())));
+        msg = msg.replace("${SOURCE_CODE}", sourceCodeList.get(random(random, 0, sourceCodeList.size())));
+        msg = msg.replace("${HOSPITAL}", hospitalList.get(random(random, 0, hospitalList.size())));
         msg = msg.replace("${formid}", formidList.get(random(random, 0, formidList.size())));
         msg = msg.replace("${currentTime}", sdf.format(new Date()) + "123");
         log.info(msg);

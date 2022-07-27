@@ -10,12 +10,12 @@ import java.sql.SQLException;
  * @author Xiahu
  * @create 2021-06-30
  */
-public class MysqlJDBC {
+public class HiveJDBC {
     public static void main(String[] args) {
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://192.168.0.114:3306/?useSSL=false", "root", "root");
+            Class.forName("org.apache.hive.jdbc.HiveDriver");
+            connection = DriverManager.getConnection("jdbc:hive2://node2:10000", "", "");
         } catch (Exception e) {
         } finally {
             try {
