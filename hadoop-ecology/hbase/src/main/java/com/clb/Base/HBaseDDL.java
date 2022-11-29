@@ -5,14 +5,15 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.Admin;
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.regionserver.BloomType;
+import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.apache.hadoop.hbase.TableName.valueOf;
 
@@ -26,6 +27,24 @@ public class HBaseDDL {
         configuration = HBaseConfiguration.create();
         configuration.set("hbase.zookeeper.quorum", "192.168.0.114");
         conn = ConnectionFactory.createConnection(configuration);
+
+    }
+
+
+    @Test
+    //创建一张表
+    public void testBufferedMutator() throws Exception {
+        try (BufferedMutator mutator = conn.getBufferedMutator(TableName.valueOf("test_1111111_index"))) {
+            List<Mutation> mutations = new ArrayList<>();
+            Put put = new Put(Bytes.toBytes("1"));
+            put.addColumn("info".getBytes(), "a".getBytes(), Bytes.toBytes("a"));
+            mutations.add(put);
+            mutator.mutate(mutations);
+            mutator.flush();
+            mutations.clear();
+        }catch (IOException e){
+            throw new RuntimeException("Failed to Update Index locations because of exception with HBase Client");
+        }
 
     }
 

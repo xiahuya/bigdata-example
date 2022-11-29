@@ -20,10 +20,13 @@
         <module>jdbc-connect</module>
         <module>hoodie</module>
         <module>hadoop-ecology</module>
+        <module>flink-jdbc-source</module>
+        <module>hoodie/hoodie-12</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <hive.version>2.1.1</hive.version>
     </properties>
 
     <dependencies>

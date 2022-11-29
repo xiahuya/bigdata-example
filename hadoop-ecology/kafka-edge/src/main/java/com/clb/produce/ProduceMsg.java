@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author Xiahu
@@ -23,6 +20,14 @@ public class ProduceMsg {
     private static List<String> formidList = Arrays.asList("549", "561", "531", "538", "540", "558", "559", "554", "307", "557", "541", "539", "542", "308", "287", "330", "556", "530", "560", "545", "552", "536", "543");
     private static Random random = new Random();
 
+    private static Calendar calendar;
+
+
+    static {
+        calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+    }
+
     public static ProducerRecord<String, String> buildMsg(String rowkey, String topic) {
         long time = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
         String msg = String.format(STUDENT_FORMAT, rowkey, "XiaHu_" + rowkey, "man", time);
@@ -31,62 +36,15 @@ public class ProduceMsg {
     }
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-    /*private static String modle = "{\n" +
-            "\t\"table\": \"${table}\",\n" +
-            "\t\"op_type\": \"U\",\n" +
-            "\t\"op_ts\": \"2019-03-19 00:50:31.678015\",\n" +
-            "\t\"current_ts\": \"${currentTime}\",\n" +
-            "\t\"pos\": \"04172325706511144646\",\n" +
-            "\t\"primary_keys\": [\n" +
-            "\t\t\"id\"\n" +
-            "\t],\n" +
-            "\t\"before\": {\n" +
-            "\t\t\"id\": \"${rowkey}\",\n" +
-            "\t\t\"id1\": \"\",\n" +
-            "\t\t\"id2\": null,\n" +
-            "\t\t\"fk_id\": \"${fk_id}\",\n" +
-            "\t\t\"qfxh1\": \"1.123\",\n" +
-            "\t\t\"qfxh2\": \"\",\n" +
-            "\t\t\"qfxh3\": null,\n" +
-            "\t\t\"gwvz1\": \"2.234\",\n" +
-            "\t\t\"gwvz2\": \"\",\n" +
-            "\t\t\"gwvz3\": null,\n" +
-            "\t\t\"joqtf1\": \"3.345\",\n" +
-            "\t\t\"joqtf2\": \"\",\n" +
-            "\t\t\"joqtf3\": null,\n" +
-            "\t\t\"isdeleted\": \"0\",\n" +
-            "\t\t\"lastupdatedttm\": \"${currentTime}\",\n" +
-            "\t\t\"rowkey\": \"${rowkey}\"\n" +
-            "\t},\n" +
-            "\t\"after\": {\n" +
-            "\t\t\"id\": \"${rowkey}\",\n" +
-            "\t\t\"id1\": \"\",\n" +
-            "\t\t\"id2\": null,\n" +
-            "\t\t\"fk_id\": \"${fk_id}\",\n" +
-            "\t\t\"qfxh1\": \"1.123\",\n" +
-            "\t\t\"qfxh2\": \"\",\n" +
-            "\t\t\"qfxh3\": null,\n" +
-            "\t\t\"gwvz1\": \"2.234\",\n" +
-            "\t\t\"gwvz2\": \"\",\n" +
-            "\t\t\"gwvz3\": null,\n" +
-            "\t\t\"joqtf1\": \"3.345\",\n" +
-            "\t\t\"joqtf2\": \"\",\n" +
-            "\t\t\"joqtf3\": null,\n" +
-            "\t\t\"isdeleted\": \"0\",\n" +
-            "\t\t\"lastupdatedttm\": \"${currentTime}\",\n" +
-            "\t\t\"rowkey\": \"${rowkey}\"\n" +
-            "\t}\n" +
-            "}";*/
 
 
-   /* private static String modle = "{\"table\":\"${table}\",\"op_type\":\"I\",\"op_ts\":\"2019-03-19 00:50:31.678015\",\"current_ts\":\"${currentTime}\",\"pos\":\"04172325706511144646\"," +
-            "\"primary_keys\":[\"rowkey\"],\"after\":{\"text5\":\"1\",\"text6\":\"2010\",\"text7\":\"3\",\"text8\":\"AFLWAI\"," +
-            "\"formid\":\"${formid}\",\"field\":\"${rowkey}\",\"rowkey\":\"${rowkey}\"}}";*/
-
-
-    private static String modle = "{\"table\":\"${table}\",\"op_type\":\"I\",\"op_ts\":\"2019-03-19 00:50:31.678015\"," +
+    /*private static String modle = "{\"table\":\"${table}\",\"op_type\":\"I\",\"op_ts\":\"${currentTime}\"," +
             "\"current_ts\":\"${currentTime}\",\"pos\":\"04172325706511144646\",\"primary_keys\":[\"id\"]," +
             "\"after\":{\"id\":\"${rowkey}\",\"fk_id\":\"${fk_id}\",\"qfxh\":\"\",\"jdpj\":" + null + ",\"nioroa\":\"RTABPQ\",\"gwvz\":\"${SOURCE_CODE}\",\"joqtf\":\"${HOSPITAL}\"}}";
+*/
+    private static String modle = "{\"table\":\"${table}\",\"op_type\":\"I\",\"op_ts\":\"${currentTime}\"," +
+            "\"current_ts\":\"${currentTime}\",\"pos\":\"04172325706511144646\",\"primary_keys\":[\"id\"]," +
+            "\"after\":{\"id\":\"${rowkey}\",\"fk_id\":\"${fk_id}\",\"qfxh\":\"\",\"jdpj\":" + null + ",\"nioroa\":\"RTABPQ\",\"gwvz\":\"${SOURCE_CODE}\",\"aaad\":\"${HOSPITAL}\"}}";
 
     public static ProducerRecord<String, String> buildOggMsg(String rowkey, String topic, String tableName) {
         String msg = modle.replace("${table}", tableName);
@@ -95,7 +53,9 @@ public class ProduceMsg {
         msg = msg.replace("${SOURCE_CODE}", sourceCodeList.get(random(random, 0, sourceCodeList.size())));
         msg = msg.replace("${HOSPITAL}", hospitalList.get(random(random, 0, hospitalList.size())));
         msg = msg.replace("${formid}", formidList.get(random(random, 0, formidList.size())));
+        //calendar.add(Calendar.MINUTE, 1);//后退1分钟
         msg = msg.replace("${currentTime}", sdf.format(new Date()) + "123");
+
         log.info(msg);
         return new ProducerRecord(topic, msg);
     }
@@ -115,6 +75,22 @@ public class ProduceMsg {
 
     public static int random(Random random, int min, int max) {
         return random.nextInt(max) % (max - min + 1) + min;
+    }
+
+
+    private static String odsSinkModle = "{\"table\":\"${table}\",\"op_type\":\"I\",\"op_ts\":\"${currentTime}\"," +
+            "\"current_ts\":\"${currentTime}\",\"pos\":\"04172325706511144646\",\"primary_keys\":[\"id\"]," +
+            "\"after\":{\"id\":\"${rowkey}\",\"age\":\"24\",\"name\":\"${SOURCE_CODE}\",\"sex\":\"男\"," +
+            "\"address\":\"${address}\",\"phone\":\"1222xxxxxxxx\",\"salve\":\"${fk_id}\"}}";
+
+    public static ProducerRecord<String, String> buildOdsSinkMsg(String rowkey, String topic, String tableName,StringBuffer address) {
+        String msg = odsSinkModle.replace("${table}", tableName);
+        msg = msg.replace("${rowkey}", rowkey);
+        msg = msg.replace("${fk_id}", partitionList.get(random(random, 0, partitionList.size())));
+        msg = msg.replace("${SOURCE_CODE}", sourceCodeList.get(random(random, 0, sourceCodeList.size())));
+        msg = msg.replace("${address}", address);
+        msg = msg.replace("${currentTime}", sdf.format(new Date()) + "123");
+        return new ProducerRecord(topic, msg);
     }
 
 

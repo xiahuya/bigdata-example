@@ -20,9 +20,6 @@
         <module>hoodie-import-trigger</module>
         <module>hoodie-import-sparkILoop</module>
         <module>hoodie-curd-test-kerberos</module>
-        <module>hoodie-flink</module>
-        <module>hoodie-spark-compact</module>
-        <module>hoodie-09</module>
     </modules>
 
     <properties>

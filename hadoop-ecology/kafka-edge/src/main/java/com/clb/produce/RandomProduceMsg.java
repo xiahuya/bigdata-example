@@ -2,6 +2,7 @@ package com.clb.produce;
 
 import com.clb.produce.Thread.InsertData;
 import com.clb.produce.Thread.ProductJsonMsg;
+import com.clb.produce.Thread.ProductOdsSinkMsg;
 import com.clb.produce.Thread.ProductOggMsg;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -22,7 +23,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class RandomProduceMsg {
     private static List<String> topicList;
-    private static int count = 10000;
+    private static int count = 100000;
     private static int INDEX_T = 1;
 
 
@@ -30,8 +31,9 @@ public class RandomProduceMsg {
         topicList = Arrays.asList("kafka_join", "kafka_join2", "kafka_join3");
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(ProduceTool.getProp());
 //        new RandomProduceMsg().start(topicList, count, producer);
-        new RandomProduceMsg().startOggMsg(count, producer);
+//        new RandomProduceMsg().startOggMsg(count, producer);
 //        new RandomProduceMsg().startJsonMsg(count, producer);
+        new RandomProduceMsg().startOdsSink(count, producer);
     }
 
     //用于生产FlinkStreamSql数据
@@ -65,9 +67,11 @@ public class RandomProduceMsg {
 
     public void startOggMsg(int count, KafkaProducer<String, String> producer) {
         long startTime = System.currentTimeMillis();
-        String TABLE = "xh.test_";
-//        String TABLE = "hid0101_cache_his_sqluser.test_";
-        String topic = "flinksqlstream_20220227";
+//        String TABLE = "xh.test_";
+        String TABLE = "hid0101_cache_his_sqluser.test_";
+//        String topic = "flinksqlstream_20220227";
+//        String topic = "flinksqlstream_20221017";
+        String topic = "flink_realtime_hdfs";
         CountDownLatch cdl = new CountDownLatch(INDEX_T);
         ExecutorService executorService = Executors.newFixedThreadPool(INDEX_T);
         for (int j = 1; j <= INDEX_T; j++) {
@@ -81,7 +85,7 @@ public class RandomProduceMsg {
                     cdl.await();
                     executorService.shutdown();
                     long endTime = System.currentTimeMillis();
-                    log.info("总共写入数据: {} ,耗费时间: {} s", count + INDEX_T, (endTime - startTime) / 1000.0);
+                    log.info("总共写入数据: {} ,耗费时间: {} s", count * INDEX_T, (endTime - startTime) / 1000.0);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
@@ -105,6 +109,33 @@ public class RandomProduceMsg {
         } finally {
             producer.close();
         }
+    }
+
+    public void startOdsSink(int count, KafkaProducer<String, String> producer) {
+        long startTime = System.currentTimeMillis();
+        String TABLE = "hid0101_cache_his_cdctest_xh.test_";
+        String topic = "wuhan_ods_test";
+        CountDownLatch cdl = new CountDownLatch(INDEX_T);
+        ExecutorService executorService = Executors.newFixedThreadPool(INDEX_T);
+        for (int j = 1; j <= INDEX_T; j++) {
+            executorService.submit(new ProductOdsSinkMsg(count, topic, TABLE + j, cdl, producer));
+        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    cdl.await();
+                    executorService.shutdown();
+                    long endTime = System.currentTimeMillis();
+                    log.info("总共写入数据: {} ,耗费时间: {} s", count * INDEX_T, (endTime - startTime) / 1000.0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    producer.close();
+                }
+            }
+        }).start();
     }
 
     public static int random(Random random, int min, int max) {
